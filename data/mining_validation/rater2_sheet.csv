@@ -1,0 +1,11 @@
+pr,title,manifestation_channel,observable_by_output_oracle,confidence,notes
+16428,Correctly combining control modifiers in OptimizeAnnotated,output_semantic,yes,high,"Nested control modifiers were combined in the wrong order, changing the circuit unitary."
+16337,Fix CommutationChecker for controlled rotation gates,output_semantic,yes,high,"Controlled rotations could be misclassified as commuting, enabling an incorrect transformation."
+16310,Reject loopback edges in CouplingMap,compilation_failure,yes,high,Invalid loopback CouplingMap edges needed early rejection to prevent a transpilation failure.
+15943,Fix TemplateOptimization dropping the global_phase on substitution,global_phase,no,high,Substitution lost the circuit global phase; an oracle modulo global phase cannot detect it.
+15875,Fix BasisTranslator processing of nested ControlFlowOp,compilation_failure,yes,medium,"Nested control-flow blocks could skip BasisTranslator rewrites, leaving target translation incomplete."
+15626,Fix BreakLoopOp object has no attribute blocks bug,compilation_failure,yes,high,BreakLoopOp traversal raised an AttributeError because the operation has no blocks attribute.
+15258,Fix reuse of ConsolidateBlocks instances,compilation_failure,yes,high,Reusing ConsolidateBlocks across differently sized circuits leaked qubit-map state and could panic.
+14998,Fix VF2PostLayout with uncoupled qubits in strict_direction=True,compilation_failure,yes,high,VF2PostLayout could fail during layout finalization for an active uncoupled or one-qubit wire.
+14939,Fix TranspileLayout.initial_index_layout with unordered virtuals,contract_metadata,no,high,initial_index_layout used dictionary enumeration order rather than the required virtual-qubit order.
+14938,Fix VF2 layout allocation with idle qubits,

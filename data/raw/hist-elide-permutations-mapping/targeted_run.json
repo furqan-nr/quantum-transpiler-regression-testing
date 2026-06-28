@@ -1,0 +1,16 @@
+{
+  "event_id": "hist-elide-permutations-mapping",
+  "records": [
+    {
+      "event_id": "hist-elide-permutations-mapping",
+      "fault_id_detected": null,
+      "label": "pass",
+      "oracle_equivalent": true,
+      "oracle_strength": "exact",
+      "oracle_type": "semantic",
+      "test_id": "trig-h1-elide-permutations",
+      "test_origin": "targeted_regression_trigger"
+    }
+  ],
+  "schema": "targeted_run/v1"
+}

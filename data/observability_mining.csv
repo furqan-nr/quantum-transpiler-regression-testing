@@ -1,0 +1,27 @@
+pr,title,manifestation_channel,observable_by_output_oracle,confidence,notes
+16428,Correctly combining control modifiers in OptimizeAnnotated,output_semantic,yes,high,wrong combination of control modifiers -> wrong unitary
+16337,Fix CommutationChecker for controlled rotation gates,output_semantic,yes,high,wrong commutation -> unsafe cancellation -> wrong unitary
+16310,Reject loopback edges in CouplingMap,compilation_failure,yes,medium,input-validation hardening against invalid coupling map
+15943,Fix TemplateOptimization dropping the global_phase on substitution,global_phase,no,high,global phase dropped; invisible to equivalence-modulo-global-phase oracles
+15875,Fix BasisTranslator processing of nested ControlFlowOp,compilation_failure,yes,medium,mishandled nested control-flow during translation (crash/invalid)
+15626,Fix BreakLoopOp object has no attribute blocks bug,compilation_failure,yes,high,AttributeError crash during transpilation
+15258,Fix reuse of ConsolidateBlocks instances,output_semantic,yes,medium,stateful pass reuse yields wrong output on second run (usage-dependent)
+14998,Fix VF2PostLayout with uncoupled qubits in strict_direction=True,compilation_failure,yes,medium,edge-case failure in layout pass with uncoupled qubits
+14939,Fix TranspileLayout.initial_index_layout with unordered virtuals,contract_metadata,no,high,corrupted initial_index_layout property; applied output may be correct
+14938,Fix VF2 layout allocation with idle qubits,circuit_quality,yes,low,idle-qubit allocation affects layout quality (ambiguous; could be metadata)
+14919,Fix composition of final_layout,contract_metadata,no,high,wrong composed final_layout metadata (study event H2)
+14763,Fix non-determinism in CommutativeCancellation,determinism,no,high,nondeterministic output across fixed-seed runs
+14730,Fix non-determinism VF2Layout with only 1q gates,determinism,no,high,nondeterministic layout (study event H3)
+14667,Restore correct max_trials behaviour for VF2Layout pass,circuit_quality,yes,medium,trials regression -> worse layout quality
+14041,Fix deepcopy/pickle of DAGCircuit variable IO nodes,compilation_failure,yes,medium,serialization crash (API-level; borderline transpile scope)
+13945,Fix composing virtual permutation layouts for ElidePermutations and StarPreRouting,contract_metadata,no,high,wrong composed virtual_permutation_layout metadata
+13910,Propagate DAGCircuit.name in ApplyLayout,contract_metadata,no,medium,name metadata not propagated; output unitary unaffected
+13884,Add 2q fractional gates to the ConsolidateBlocks transpiler pass,circuit_quality,yes,low,handling of fractional 2q gates in consolidation (could be enhancement)
+13874,Use average gate fidelity in the commutation checker,circuit_quality,yes,low,changes commutation metric; affects optimization quality
+13833,Fix tracking of routing permutation in Sabre with disjoint backends,contract_metadata,no,high,wrong routing_permutation tracking; TranspileLayout assertion fails
+13820,Delegate BasePass.__call__ to PassManager.run,contract_metadata,no,low,API/contract plumbing fix (borderline transpile scope)
+13790,Do not contract control-flow operations during SabreSwap,output_semantic,yes,medium,incorrect routing of control-flow ops
+13670,Fix 4-pi periodicity of controlled rotations in the CommutationChecker,output_semantic,yes,high,wrong commutation for 4-pi periodicity -> unsafe cancellation
+14603,Fix ElidePermutations pass in the presence of PermutationGates,contract_metadata,no,high,corrupts virtual_permutation_layout (study event H1; built-from-source confirmed)
+14120,VF2PostLayout added at L3 (no-op overhead; reverted),performance,yes,medium,compile-time overhead (study event H4; below screen on commodity HW)
+16285,Fix panic on 1.0 error in VF2Layout,compilation_failure,yes,high,VF2Layout panic/crash (study event H5)

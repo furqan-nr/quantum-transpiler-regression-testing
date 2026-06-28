@@ -1,0 +1,27 @@
+pr,title,r1_channel,r1_observable,r2_channel,r2_observable,binary_agree,channel_agree,note
+16428,"Correctly combining control modifiers in OptimizeAnnotated",output_semantic,yes,output_semantic,yes,Y,Y,
+16337,"Fix CommutationChecker for controlled rotation gates",output_semantic,yes,output_semantic,yes,Y,Y,
+16310,"Reject loopback edges in CouplingMap",compilation_failure,yes,compilation_failure,yes,Y,Y,
+15943,"Fix TemplateOptimization dropping the global_phase on substitution",global_phase,no,global_phase,no,Y,Y,
+15875,"Fix BasisTranslator processing of nested ControlFlowOp",compilation_failure,yes,compilation_failure,yes,Y,Y,
+15626,"Fix BreakLoopOp object has no attribute blocks bug",compilation_failure,yes,compilation_failure,yes,Y,Y,
+15258,"Fix reuse of ConsolidateBlocks instances",output_semantic,yes,compilation_failure,yes,Y,N,channel differs (semantic vs crash); both observable
+14998,"Fix VF2PostLayout with uncoupled qubits in strict_direction=True",compilation_failure,yes,compilation_failure,yes,Y,Y,
+14939,"Fix TranspileLayout.initial_index_layout with unordered virtuals",contract_metadata,no,contract_metadata,no,Y,Y,
+14938,"Fix VF2 layout allocation with idle qubits",circuit_quality,yes,contract_metadata,no,N,N,"BINARY DISAGREE; R1 flagged ambiguous (quality vs metadata); proposed adjudication: contract_metadata/no"
+14919,"Fix composition of final_layout",contract_metadata,no,contract_metadata,no,Y,Y,
+14763,"Fix non-determinism in CommutativeCancellation",determinism,no,determinism,no,Y,Y,
+14730,"Fix non-determinism VF2Layout with only 1q gates",determinism,no,determinism,no,Y,Y,
+14667,"Restore correct max_trials behaviour for VF2Layout pass",circuit_quality,yes,performance,yes,Y,N,channel differs (quality vs performance); both observable
+14041,"Fix deepcopy/pickle of DAGCircuit variable IO nodes",compilation_failure,yes,contract_metadata,no,N,N,"BINARY DISAGREE; borderline transpiler scope (serialization); needs author adjudication"
+13945,"Fix composing virtual permutation layouts for ElidePermutations and StarPreRouting",contract_metadata,no,contract_metadata,no,Y,Y,
+13910,"Propagate DAGCircuit.name in ApplyLayout",contract_metadata,no,contract_metadata,no,Y,Y,
+13884,"Add 2q fractional gates to the ConsolidateBlocks transpiler pass",circuit_quality,yes,circuit_quality,yes,Y,Y,
+13874,"Use average gate fidelity in the commutation checker",circuit_quality,yes,output_semantic,yes,Y,N,channel differs (quality vs semantic); both observable
+13833,"Fix tracking of routing permutation in Sabre with disjoint backends",contract_metadata,no,contract_metadata,no,Y,Y,
+13820,"Delegate BasePass.__call__ to PassManager.run",contract_metadata,no,compilation_failure,yes,N,N,"BINARY DISAGREE; proposed adjudication: compilation_failure/yes (direct call raises)"
+13790,"Do not contract control-flow operations during SabreSwap",output_semantic,yes,output_semantic,yes,Y,Y,
+13670,"Fix 4-pi periodicity of controlled rotations in the CommutationChecker",output_semantic,yes,output_semantic,yes,Y,Y,
+14603,"Fix ElidePermutations pass in the presence of PermutationGates",contract_metadata,no,output_semantic,yes,N,N,"BINARY DISAGREE; ADJUDICATED contract_metadata/no by built-from-source evidence (study event H1: oracle reports pass on buggy build)"
+14120,"VF2PostLayout added at L3 (no-op overhead; reverted)",performance,yes,performance,yes,Y,Y,
+16285,"Fix panic on 1.0 error in VF2Layout",compilation_failure,yes,compilation_failure,yes,Y,Y,
