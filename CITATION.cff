@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite both the software (metadata below) and the accompanying paper (see preferred-citation)."
-title: "Leakage-Safe Evaluation of Quantum Transpiler Regression Testing (cart)"
-version: "1.0.0"
-date-released: "2026-06-28"
+title: "Oracle Observability of Quantum Transpiler Regressions (cart)"
+version: "1.2.0"
+date-released: "2026-06-30"
 license: MIT
 type: software
-repository-code: "https://github.com/furqan-nr/QIP-Submission"
+repository-code: "https://github.com/furqan-nr/quantum-transpiler-regression-testing"
 keywords:
   - quantum software engineering
   - regression test selection
@@ -14,12 +14,14 @@ keywords:
   - test oracle
   - quantum circuit equivalence checking
 abstract: >-
-  cart is a research prototype and leakage-safe evaluation framework for
-  cost-aware regression-test selection and prioritization of the Qiskit
-  transpiler, a setting in which the oracle must decide circuit equivalence
-  modulo qubit-layout permutation. It contributes a fault-manifestation
-  taxonomy and a repository-mining study showing that a substantial fraction
-  of real transpiler regressions are invisible to output-equivalence oracles.
+  cart is a research prototype and leakage-safe evaluation framework for the
+  Qiskit transpiler. Its central finding is an oracle-observability gap: a
+  substantial fraction (about 38%) of real transpiler regressions corrupt
+  internal contract/metadata, introduce non-determinism, or drop global phase,
+  and are therefore invisible to output-equivalence oracles. It also provides a
+  fault-manifestation taxonomy, fault-class-matched oracles, and a cost-aware
+  regression-test-selection pilot, in a setting where the oracle must decide
+  circuit equivalence modulo qubit-layout permutation.
 authors:
   - family-names: Nasir
     given-names: Furqan
@@ -34,11 +36,11 @@ authors:
     affiliation: "City University of Science and Information Technology (CUSIT), Peshawar, Pakistan"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.XXXXXXX"
-    description: "Archived snapshot of this software (replace with the Zenodo DOI minted on release)."
+    value: "10.5281/zenodo.21020113"
+    description: "Archived snapshot of this software release (v1.1)."
 preferred-citation:
   type: article
-  title: "Leakage-Safe Evaluation of Quantum Transpiler Regression Testing: Oracle Observability, Metadata Faults, and a Cost-Aware Pilot in Qiskit"
+  title: "Oracle Observability of Quantum Transpiler Regressions: What Output-Equivalence Oracles Miss in Qiskit, and a Leakage-Safe, Cost-Aware Regression-Testing Pilot"
   authors:
     - family-names: Nasir
       given-names: Furqan

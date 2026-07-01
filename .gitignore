@@ -1,1 +1,22 @@
-paper
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Virtual environments
+.venv-anchor/
+.venv-harness/
+.venv/
+venv/
+
+# Per-event from-source builds (heavy: Qiskit clones + venvs) — rebuilt locally, not tracked
+environment/_builds/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

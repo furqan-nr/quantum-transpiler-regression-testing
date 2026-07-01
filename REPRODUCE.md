@@ -4,7 +4,7 @@ This archive accompanies the manuscript *"Leakage-Safe Evaluation of Quantum Tra
 Regression Testing: Oracle Observability, Metadata Faults, and a Cost-Aware Pilot in Qiskit"*
 (Quantum Information Processing, Quantum Software Engineering collection).
 
-DOI: _to be added on archival_ · License: MIT (see `LICENSE`).
+DOI: https://doi.org/10.5281/zenodo.21020113 · License: MIT (see `LICENSE`).
 
 ## What is here
 

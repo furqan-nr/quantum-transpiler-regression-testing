@@ -56,8 +56,8 @@
       "split_group_id": "a18e15163d8a", "event_date": "2025-05-19", "train_or_test": "train",
       "change_metadata": {"kind": "historical", "modified_pass_stages": ["optimization"], "pr": 14120, "reference": "Added VF2PostLayout at L3 (no-op; reverted in 2.1.2; issue 14867)"},
       "mutation_family": null, "mutation_params": {},
-      "notes": "BLOCKED (perf below threshold): no-op overhead < 20% Stage-1 screen on small units; single-sample timing under-powered; exploratory, deferred to Phase 6.",
-      "reproducibility_status": "blocked",
+      "notes": "VERIFIED (Stage-2 multi-run): no-op overhead decisively detected by a multi-run wall-clock Stage-2 protocol (pre-declared 20% threshold + Cliff's delta + bootstrap CI) over a width-extended symmetric regime (GHZ on heavy-hex at opt3); median slowdown ~1.9x (16q) to >300x (27q), Cliff's delta=1.0, complete sample separation. Single-sample CPU-time Stage-1 on the <=8q corpus stayed below the 20% screen (the original pilot status).",
+      "reproducibility_status": "verified",
       "event_kind": "forward_regression", "pair_orientation": "forward",
       "evaluation_cohort": "forward_regression", "change_metadata_sha": "a8d23667ff5fb0d58738b115d1f1023160f36aa2"
     },
