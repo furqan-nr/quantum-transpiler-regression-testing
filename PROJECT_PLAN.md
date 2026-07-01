@@ -52,7 +52,7 @@ are checked continuously, not just at the end.
 ## 3. Repository Layout
 
 ```
-qiskit-cost-aware-regression-testing/
+quantum-transpiler-regression-testing/
   METHODOLOGY.md
   PROJECT_PLAN.md
   environment/
