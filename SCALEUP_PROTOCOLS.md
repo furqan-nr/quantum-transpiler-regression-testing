@@ -65,6 +65,18 @@ run **H1 and H2** through it. **Reuses:** `src/cart/oracles/property_layout.py`,
 `--isolated-pass` mode, and `scripts/verify_h1_isolated.py` (already detects H1). H2's trigger
 (`trig-h2-final-layout-composition`) already exists.
 
+**Implemented in the runner (30 Jun).** `run_targeted_event` now has an `oracle_type="contract"` branch
+that runs the pass in isolation on both builds and flags a divergence (differing output, differing
+`property_set`, or an asymmetric error) as `contract_metadata_fail` on the Secondary track;
+`trig-h1-elide-permutations` is retyped to it (`isolated_pass="ElidePermutations"`). H1 now routes
+through the property oracle automatically:
+
+```
+python -m pytest -q tests/test_targeted.py          # confirm the suite stays green first
+python -m cart.cli historical-run --event hist-elide-permutations-mapping --use-targeted
+# expect {contract_metadata_fail: 1} on the real buggy/fixed builds; {pass: 1} on the fixed anchor
+```
+
 ### C4.1 — Build H2 from source
 H2 = `hist-final-layout-composition` (PR #14919; candidate `14df5941…`, baseline `dfcc5c6c…`, env-id
 `hist-finallayout-14919`):

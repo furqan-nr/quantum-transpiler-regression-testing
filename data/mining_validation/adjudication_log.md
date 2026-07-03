@@ -1,0 +1,13 @@
+# Adjudication log — rater disagreements (seed corpus, n=26)
+
+Decisions for the 7 PRs where Rater 1 and Rater 2 differed. 'ADJUDICATED' = settled; 'PROPOSED' = applied to `corpus.csv` pending your review; 'PARTIAL' = observable settled, channel pending; 'OPEN' = needs author/developer input. Edit freely.
+
+| PR | title | R1 | R2 | decision (channel/observable) | status & reason |
+|---|---|---|---|---|---|
+| 14603 | Fix ElidePermutations pass in the presence of  | contract_metadata/no | output_semantic/yes | contract_metadata/no | ADJUDICATED: built-from-source H1 evidence — output oracle passes buggy build; metadata (virtual_permutation_layout) corrupted. |
+| 14938 | Fix VF2 layout allocation with idle qubits | circuit_quality/yes | contract_metadata/no | contract_metadata/no | PROPOSED: R1 flagged quality-vs-metadata ambiguous; layout-applied output correct -> contract_metadata/no. |
+| 13820 | Delegate BasePass.__call__ to PassManager.run | contract_metadata/no | compilation_failure/yes | compilation_failure/yes | PROPOSED: direct BasePass.__call__ raises -> functional failure, observable. |
+| 15258 | Fix reuse of ConsolidateBlocks instances | output_semantic/yes | compilation_failure/yes | ?/yes | PARTIAL: both raters observable=yes (final=yes). Channel pending: output_semantic (R1) vs compilation_failure (R2) — needs author check of reuse-of-instances effect. |
+| 14667 | Restore correct max_trials behaviour for VF2La | circuit_quality/yes | performance/yes | ?/yes | PARTIAL: both observable=yes (final=yes). Channel pending: circuit_quality (R1) vs performance (R2). |
+| 13874 | Use average gate fidelity in the commutation c | circuit_quality/yes | output_semantic/yes | ?/yes | PARTIAL: both observable=yes (final=yes). Channel pending: circuit_quality (R1) vs output_semantic (R2). |
+| 14041 | Fix deepcopy/pickle of DAGCircuit variable IO  | compilation_failure/yes | contract_metadata/no | ?/? | OPEN: borderline transpiler scope (DAGCircuit deepcopy/pickle, serialization). Needs author adjudication; left blank. |

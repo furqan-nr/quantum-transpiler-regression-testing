@@ -34,6 +34,7 @@ class TargetedUnit:
     test_origin: str = "targeted_regression_trigger"
     test_provenance: str = "extracted_from_fix"   # pre_existing | extracted_from_fix | synthesized
     available_before_candidate: bool = False      # extracted from the FIX => after candidate => not CI-eligible
+    isolated_pass: str = ""                        # for oracle_type="contract": run THIS pass in isolation
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -88,9 +89,9 @@ TARGETED_UNITS: dict[str, TargetedUnit] = {
         target_pass_or_component="ElidePermutations (optimization)",
         trigger_rationale="PermutationGate over qubits overlapping prior swaps forces ElidePermutations "
                           "to update the qubit mapping; the buggy version mislabels it.",
-        oracle_type="semantic",
-        expected_baseline_behavior="Operator.from_circuit(transpiled) equiv Operator(original)",
-        expected_candidate_behavior="NOT equivalent (wrong mapping / TranspileLayout)",
+        oracle_type="contract", isolated_pass="ElidePermutations",
+        expected_baseline_behavior="isolated ElidePermutations output + property_set identical to the fixed build",
+        expected_candidate_behavior="isolated ElidePermutations diverges (corrupt virtual_permutation_layout, or KeyError)",
         backend_id="line", opt_level=3, test_available_sha="96fda18888de4492f37ccdb93faf15dc014c99eb"),
     "trig-h2-final-layout-composition": TargetedUnit(
         test_id="trig-h2-final-layout-composition",

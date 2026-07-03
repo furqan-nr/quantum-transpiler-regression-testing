@@ -1,0 +1,1 @@
+batch_id,eligibility_status,exclusion_reason,eligibility_evidence_url,fix_pr,pr_url,title,issue_url,fix_commit,introducing_commit,modules,stage,fix_date,r1_channel,r1_observable,r1_confidence,r1_notes,r2_channel,r2_observable,r2_confidence,r2_notes,channel_final,observable_final,adjudication_status,developer_confirmed,discussion_url,notes

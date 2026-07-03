@@ -158,11 +158,14 @@ def run_historical_event(
             "raw_sha256": hashlib.sha256(raw_path.read_text().encode()).hexdigest()}
 
 
-def _run_targeted_worker(python_exe: str, unit, out_dir: Path, seed: int = 1234) -> dict:
+def _run_targeted_worker(python_exe: str, unit, out_dir: Path, seed: int = 1234,
+                         isolated_pass: str | None = None) -> dict:
     import os
     cmd = [str(python_exe), "-m", "cart.labels.historical_worker",
            "--targeted", unit.test_id, "--backend", unit.backend_id, "--opt", str(unit.opt_level),
            "--basis", ",".join(DEFAULT_BASIS), "--seed", str(seed), "--out", str(out_dir)]
+    if isolated_pass:
+        cmd += ["--isolated-pass", isolated_pass]
     env = dict(os.environ); env["PYTHONPATH"] = str(_REPO_ROOT / "src")
     subprocess.run(cmd, cwd=str(_REPO_ROOT), env=env, check=True, capture_output=True, timeout=600)
     return json.loads((out_dir / "worker.json").read_text())
@@ -202,6 +205,30 @@ def run_targeted_event(event: Event, out_root: str | Path, *,
                     same = _circuit_fingerprint(o1) == _circuit_fingerprint(o2)
                     rec["label"] = "pass" if same else "quality_regression"
                     rec["deterministic"] = same
+            elif u.oracle_type == "contract":   # contract/metadata: isolated-pass differential (H1)
+                ipass = getattr(u, "isolated_pass", "") or None
+                bw = _run_targeted_worker(bpy, u, tmp / f"{u.test_id}-base", isolated_pass=ipass)
+                cw = _run_targeted_worker(cpy, u, tmp / f"{u.test_id}-cand", isolated_pass=ipass)
+                b_ok, c_ok = bw.get("status") == "ok", cw.get("status") == "ok"
+                rec["track"] = "secondary_retrospective"
+                rec["isolated_pass"] = ipass
+                if not b_ok and not c_ok:
+                    rec["label"] = "inconclusive"
+                    rec["detail"] = f"both builds errored in isolation ({bw.get('error_type')}/{cw.get('error_type')})"
+                elif b_ok != c_ok:   # asymmetric error => the builds diverge on the trigger
+                    rec["label"] = "contract_metadata_fail"
+                    rec["divergence"] = "asymmetric_error"
+                    rec["error_side"] = "candidate" if not c_ok else "baseline"
+                else:
+                    from cart.oracles.property_layout import compare_layout_props
+                    bo = _load_qpy(tmp / f"{u.test_id}-base" / "circuit.qpy")
+                    co = _load_qpy(tmp / f"{u.test_id}-cand" / "circuit.qpy")
+                    circ_div = _circuit_fingerprint(bo) != _circuit_fingerprint(co)
+                    ps = compare_layout_props(bw.get("property_set", {}), cw.get("property_set", {}))
+                    rec["circuit_diverges"] = circ_div
+                    rec["property_divergent_fields"] = ps.divergent_fields
+                    rec["label"] = "contract_metadata_fail" if (circ_div or ps.equivalent is False) else "pass"
+                rec["fault_id_detected"] = event.fault_id if rec["label"] == "contract_metadata_fail" else None
             else:   # semantic / structural
                 bw = _run_targeted_worker(bpy, u, tmp / f"{u.test_id}-base")
                 cw = _run_targeted_worker(cpy, u, tmp / f"{u.test_id}-cand")
@@ -218,7 +245,7 @@ def run_targeted_event(event: Event, out_root: str | Path, *,
                         rec["label"] = "semantic_fail"
                     else:
                         rec["label"] = "pass"
-            rec["fault_id_detected"] = event.fault_id if rec["label"] == expected else None
+            rec.setdefault("fault_id_detected", event.fault_id if rec["label"] == expected else None)
             records.append(rec)
     raw_dir = out_root / "raw" / event.event_id
     raw_dir.mkdir(parents=True, exist_ok=True)

@@ -1,47 +1,57 @@
 #!/usr/bin/env python3
 """Inter-rater agreement for the transpiler-fix observability mining study.
 
-Computes Cohen's kappa between Rater 1 (data/observability_mining.csv) and
-Rater 2 (data/mining_validation/rater2_sheet.csv), on:
+Computes Cohen's kappa between Rater 1 and Rater 2 on:
   (a) the binary `observable_by_output_oracle` judgment  <- the headline claim
   (b) the multi-class `manifestation_channel` judgment
 
-Dependency-free (standard library only). Run:
-    python3 data/mining_validation/compute_kappa.py
+Authoritative source is the COMPLETE double-coding in `dual_rater_labels.csv`.
+The older `rater2_sheet.csv` was only partially filled (n=9) and over-reported kappa;
+this script no longer uses it for the headline number.
+
+Reports raw agreement, Cohen's kappa, a bootstrap 95% CI, and a confidence breakdown.
+Dependency-free. Run:  python3 data/mining_validation/compute_kappa.py
 """
-import csv, os, sys
+import csv, os, random
+from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-R1 = os.path.join(HERE, "..", "observability_mining.csv")
-R2 = os.path.join(HERE, "rater2_sheet.csv")
+DUAL = os.path.join(HERE, "dual_rater_labels.csv")
+R1_CONF = os.path.join(HERE, "..", "observability_mining.csv")
 
-def load(path, fields):
-    out = {}
-    with open(path, newline="", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
-            pr = (row.get("pr") or "").strip()
-            if not pr:
-                continue
-            out[pr] = {k: (row.get(k) or "").strip().lower() for k in fields}
-    return out
 
 def cohen_kappa(pairs):
-    """pairs: list of (a, b) category labels. Returns (kappa, po, n)."""
     n = len(pairs)
     if n == 0:
         return None, None, 0
     cats = sorted({c for ab in pairs for c in ab})
     po = sum(1 for a, b in pairs if a == b) / n
-    a_count = {c: 0 for c in cats}
-    b_count = {c: 0 for c in cats}
+    ac = {c: 0 for c in cats}
+    bc = {c: 0 for c in cats}
     for a, b in pairs:
-        a_count[a] += 1
-        b_count[b] += 1
-    pe = sum((a_count[c] / n) * (b_count[c] / n) for c in cats)
-    kappa = (po - pe) / (1 - pe) if (1 - pe) > 1e-12 else 1.0
-    return kappa, po, n
+        ac[a] += 1
+        bc[b] += 1
+    pe = sum((ac[c] / n) * (bc[c] / n) for c in cats)
+    k = (po - pe) / (1 - pe) if (1 - pe) > 1e-12 else 1.0
+    return k, po, n
 
-def interpret(k):
+
+def bootstrap_ci(pairs, iters=5000, seed=0):
+    if len(pairs) < 2:
+        return None, None
+    rng = random.Random(seed)
+    ks = []
+    n = len(pairs)
+    for _ in range(iters):
+        sample = [pairs[rng.randrange(n)] for _ in range(n)]
+        k, _, _ = cohen_kappa(sample)
+        if k is not None:
+            ks.append(k)
+    ks.sort()
+    return ks[int(0.025 * len(ks))], ks[int(0.975 * len(ks)) - 1]
+
+
+def interp(k):
     if k is None: return "n/a"
     if k < 0:    return "less than chance"
     if k <= .20: return "slight"
@@ -50,35 +60,38 @@ def interpret(k):
     if k <= .80: return "substantial"
     return "almost perfect"
 
+
 def main():
-    r1 = load(R1, ["observable_by_output_oracle", "manifestation_channel"])
-    r2 = load(R2, ["observable_by_output_oracle", "manifestation_channel"])
-    common = [pr for pr in r1 if pr in r2]
-    rated = [pr for pr in common if r2[pr]["observable_by_output_oracle"]]
-    if not rated:
-        print("Rater 2 sheet appears empty. Fill rater2_sheet.csv first "
-              "(see CODEBOOK.md), then re-run.")
-        print(f"PRs awaiting Rater 2 labels: {len(common)}")
-        return
+    rows = list(csv.DictReader(open(DUAL, newline="", encoding="utf-8")))
+    conf = {}
+    if os.path.exists(R1_CONF):
+        for r in csv.DictReader(open(R1_CONF, newline="", encoding="utf-8")):
+            conf[(r.get("pr") or "").strip()] = (r.get("confidence") or "").strip().lower()
 
-    for field, label in [("observable_by_output_oracle", "BINARY observable (headline)"),
-                         ("manifestation_channel", "manifestation_channel (7-class)")]:
-        pairs = [(r1[pr][field], r2[pr][field]) for pr in rated
-                 if r1[pr][field] and r2[pr][field]]
+    print("Source: dual_rater_labels.csv   PRs double-coded: %d" % len(rows))
+    for f, lab in [("observable", "BINARY observable_by_output_oracle (headline)"),
+                   ("channel", "manifestation_channel (7-class)")]:
+        pairs = [((r["r1_" + f] or "").strip().lower(), (r["r2_" + f] or "").strip().lower())
+                 for r in rows]
         k, po, n = cohen_kappa(pairs)
-        print(f"\n== {label} ==")
-        print(f"  n rated by both : {n}")
-        if k is not None:
-            print(f"  raw agreement   : {po*100:.1f}%")
-            print(f"  Cohen's kappa   : {k:.3f}  ({interpret(k)})")
-        disagree = [pr for pr in rated
-                    if r1[pr][field] and r2[pr][field] and r1[pr][field] != r2[pr][field]]
-        if disagree:
-            print(f"  disagreements   : {len(disagree)} -> {', '.join(sorted(disagree))}")
+        lo, hi = bootstrap_ci(pairs)
+        print("\n== %s ==" % lab)
+        print("  n               : %d" % n)
+        print("  raw agreement   : %.1f%%" % (po * 100))
+        ci = ("  [95%% CI %.3f, %.3f]" % (lo, hi)) if lo is not None else ""
+        print("  Cohen's kappa   : %.3f  (%s)%s" % (k, interp(k), ci))
+        dis = [r["pr"] for r in rows
+               if (r["r1_" + f] or "").strip().lower() != (r["r2_" + f] or "").strip().lower()]
+        if dis:
+            print("  disagreements   : %d -> %s" % (len(dis), ", ".join(dis)))
 
-    # headline count from the agreed/Rater-1 'no' set
-    no1 = sum(1 for pr in r1 if r1[pr]["observable_by_output_oracle"] == "no")
-    print(f"\nRater 1 output-invisible ('no'): {no1}/{len(r1)} = {no1/len(r1)*100:.0f}%")
+    no1 = sum(1 for r in rows if (r["r1_observable"] or "").strip().lower() == "no")
+    print("\nOutput-invisible (R1 'no'): %d/%d = %d%%" % (no1, len(rows), round(no1 / len(rows) * 100)))
+
+    if conf:
+        c = Counter(conf.get(r["pr"], "?") for r in rows)
+        print("Confidence distribution (R1): " + ", ".join("%s=%d" % (k, v) for k, v in sorted(c.items())))
+
 
 if __name__ == "__main__":
     main()
