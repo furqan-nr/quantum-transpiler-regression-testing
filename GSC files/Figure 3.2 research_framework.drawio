@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT" compressed="false">
+  <diagram id="cart-a4-minimal-revised" name="CART Framework — A4 Minimal Revised">
+    <mxGraphModel dx="1288" dy="745" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1120" pageHeight="792" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="goal" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=14;strokeWidth=2.5;fontSize=22;shadow=1;spacing=8;labelBackgroundColor=none;fillColor=#F5F5F5;" value="&lt;b&gt;MAIN GOAL&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:17px&quot;&gt;Effective, leakage-safe and cost-aware&lt;br&gt;Qiskit transpiler regression testing&lt;/span&gt;" vertex="1">
+          <mxGeometry height="82" width="680" x="220" y="18" as="geometry" />
+        </mxCell>
+        <mxCell id="lh" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=12;strokeWidth=2.5;fontSize=19;spacing=6;labelBackgroundColor=none;fillColor=#D5D5D5;" value="&lt;b&gt;OBSERVABILITY &amp;amp; EFFECTIVENESS&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;How large is the gap, and can matched oracles close it?&lt;/span&gt;" vertex="1">
+          <mxGeometry height="58" width="510" x="34" y="132" as="geometry" />
+        </mxCell>
+        <mxCell id="rh" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=12;strokeWidth=2.5;fontSize=19;spacing=6;labelBackgroundColor=none;fillColor=#D5D5D5;" value="&lt;b&gt;BUDGETED PRIORITISATION&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;Can fault-detecting tests run earlier under equal CPU budgets?&lt;/span&gt;" vertex="1">
+          <mxGeometry height="58" width="510" x="576" y="132" as="geometry" />
+        </mxCell>
+        <mxCell id="rq1" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=14;strokeWidth=2.5;fontSize=18;spacing=10;shadow=1;labelBackgroundColor=none;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="&lt;b&gt;RQ1 · GAP PREVALENCE&lt;/b&gt;&lt;br&gt;&lt;br&gt;How often does the&lt;br&gt;&lt;b&gt;4-oracle screen&lt;/b&gt;&lt;br&gt;miss real regressions?&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;semantic · validity&lt;br&gt;quality · performance&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Output:&lt;/b&gt; prevalence" vertex="1">
+          <mxGeometry height="260" width="238" x="34" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="rq2" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=14;strokeWidth=2.5;fontSize=18;spacing=10;shadow=1;labelBackgroundColor=none;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="&lt;b&gt;RQ2 · GAP CLOSABILITY&lt;/b&gt;&lt;br&gt;&lt;br&gt;Can source-confirmed misses&lt;br&gt;be caught by&lt;br&gt;&lt;b&gt;matched oracles&lt;/b&gt;?&lt;br&gt;&lt;br&gt;&lt;span style=&quot;font-size:16px&quot;&gt;contract · property&lt;br&gt;isolated-pass · determinism&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Output:&lt;/b&gt; confirmed closures" vertex="1">
+          <mxGeometry height="260" width="254" x="306" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="rq4a" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=14;strokeWidth=2.5;fontSize=16;spacing=8;shadow=1;labelBackgroundColor=none;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="&lt;b&gt;RQ4(a) · FEASIBILITY EXECUTION&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;risk_score&lt;/i&gt; + 5 baselines&lt;br&gt;Equal budgets · anti-leakage&lt;br&gt;&lt;b&gt;Claim:&lt;/b&gt; correct execution only" vertex="1">
+          <mxGeometry height="94" width="510" x="576" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="rq4b" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=14;strokeWidth=2.5;fontSize=17;spacing=10;shadow=1;labelBackgroundColor=none;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="&lt;b&gt;RQ4(b) · POWERED COMPARISON&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Entry:&lt;/b&gt; prospectively fixed event target&lt;br&gt;&lt;b&gt;Test:&lt;/b&gt; earlier fault detection&lt;br&gt;&lt;b&gt;Analysis:&lt;/b&gt; paired event-level curves&lt;br&gt;&lt;b&gt;Output:&lt;/b&gt; comparative performance" vertex="1">
+          <mxGeometry height="124" width="516" x="570" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="hYb5Rftp7d4v9PReY484-2" edge="1" parent="1" source="rq3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" target="rq4a">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rq3" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=12;strokeWidth=2.5;fontSize=18;spacing=8;labelBackgroundColor=none;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="&lt;b&gt;RQ3 · AUDITED OPERATIONAL FOUNDATION&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:17px&quot;&gt;Supports and audits every empirical RQ&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;font-size:15px&quot;&gt;cohort split · provenance · write-once evidence · CPU calibration · six gates&lt;/span&gt;&lt;br&gt;&lt;b&gt;Output:&lt;/b&gt; operationally sound pipeline" vertex="1">
+          <mxGeometry height="104" width="1052" x="34" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="conclusion" parent="1" style="html=1;whiteSpace=wrap;align=center;verticalAlign=middle;fontFamily=Arial;rounded=1;arcSize=12;strokeWidth=2.5;fontSize=18;spacing=8;shadow=1;labelBackgroundColor=none;fillColor=#BCBCBC;" value="&lt;b&gt;SCOPE-BOUNDED CONCLUSION&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:17px&quot;&gt;Gap prevalence quantified · selected misses assessed with matched oracles · pipeline audited&lt;br&gt;Selector superiority tested only in powered RQ4(b)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="84" width="940" x="90" y="642" as="geometry" />
+        </mxCell>
+        <mxCell id="g1" edge="1" parent="1" source="goal" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;endArrow=block;endFill=1;labelBackgroundColor=none;fontColor=default;" target="lh" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="106" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="g2" edge="1" parent="1" source="goal" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;endArrow=block;endFill=1;labelBackgroundColor=none;fontColor=default;" target="rh" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="106" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lr" edge="1" parent="1" source="rq1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;endArrow=block;endFill=1;fontFamily=Arial;fontSize=15;fontColor=default;labelBackgroundColor=none;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="330" />
+            </Array>
+            <mxPoint x="300" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rr" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;endArrow=block;endFill=1;exitX=0.18;exitY=1;exitDx=0;exitDy=0;entryX=0.18;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="828.8000000000004" y="304" as="sourcePoint" />
+            <mxPoint x="823.8800000000001" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fc" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2.5;endArrow=block;endFill=1;fontFamily=Arial;fontSize=15;fontColor=default;labelBackgroundColor=none;" value="combined audited evidence">
+          <mxGeometry relative="1" x="-0.0345" y="-106" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="566" y="582" as="sourcePoint" />
+            <mxPoint x="566" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s_rq1" edge="1" parent="1" source="rq3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;dashPattern=6 5;endArrow=block;endFill=1;exitX=0.113;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" target="rq1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s_rq2" edge="1" parent="1" source="rq3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;dashPattern=6 5;endArrow=block;endFill=1;exitX=0.372;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" target="rq2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="s_rq4b" edge="1" parent="1" source="rq3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;dashed=1;dashPattern=6 5;endArrow=block;endFill=1;exitX=0.755;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=none;fontColor=default;" target="rq4b" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
